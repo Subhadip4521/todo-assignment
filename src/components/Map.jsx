@@ -34,7 +34,7 @@ const Map = () => {
       <div>
         <div className="font-bold text-2xl">Current Location</div>
         <div>
-          Latittude: {latitude} & Longitude: {longitude}
+          Latittude: {latitude}   Longitude: {longitude}
         </div>
         <div className="break-words">User City: {userAddress.city}</div>
         <div className="break-words">User Country: {userAddress.country}</div>
