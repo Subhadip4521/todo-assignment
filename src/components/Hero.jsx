@@ -25,6 +25,7 @@ const Hero = () => {
     setHeight("mt-20 mx-10");
   };
 
+  // eslint-disable-next-line
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.month),
     datasets: [
