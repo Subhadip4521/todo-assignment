@@ -137,7 +137,7 @@ const OpenLayermap = () => {
         </div>
 
         <div>
-          {userAddress.country ? (
+          {latitude || longitude ? (
             <div>
               <button
                 onClick={handleGetUserAddress}
