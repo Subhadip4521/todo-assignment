@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import bullseye from "../assets/bullseye.svg";
 import sandclock from "../assets/sandclock.svg";
@@ -10,10 +10,10 @@ import ChartGraph from "./Chart";
 import OpenLayermap from "./OpenLayermap";
 
 const Hero = () => {
-  // const taskData = async () => {
+  // const barData = async () => {
   //   try {
   //     const response = await (
-  //       await fetch("http://test-backend.durbin.co.in/main/get", {
+  //       await fetch("http://test-backend.durbin.co.in/main/bar_chart_data", {
   //         method: "GET",
   //         "Content-Type": "application/json",
   //       })
@@ -24,7 +24,22 @@ const Hero = () => {
   //   }
   // };
 
-  // console.log(taskData());
+  // console.log(barData());
+
+  
+  // eslint-disable-next-line
+  const [userData, setUserData] = useState([]);
+  
+  useEffect(() => {
+    fetch("http://test-backend.durbin.co.in/main/bar_chart_data")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setUserData([data]);
+      });
+  }, []);
 
   const [cal, setCal] = useState("hidden");
   const [date, setDate] = useState("block");
@@ -40,20 +55,6 @@ const Hero = () => {
     setDate("block");
     setHeight("mt-20 mx-10");
   };
-
-  // eslint-disable-next-line
-  const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.month),
-    datasets: [
-      {
-        label: "Tasks Done",
-        data: UserData.map((data) => data.task_done),
-        backgroundColor: ["green", "red", "blue", "purple"],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-    ],
-  });
 
   return (
     <div>
