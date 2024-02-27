@@ -6,7 +6,6 @@ const Page = () => {
   return (
     <>
       <BrowserRouter>
-        <Hero />
         <Routes>
           <Route exact path="/" element={<Hero/> } />
         </Routes>
