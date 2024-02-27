@@ -8,7 +8,7 @@ const Page = () => {
       <BrowserRouter>
         <Hero />
         <Routes>
-          <Route />
+          <Route exact path="/" element={<Hero/> } />
         </Routes>
       </BrowserRouter>
     </>
