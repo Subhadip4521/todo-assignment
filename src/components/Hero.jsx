@@ -25,12 +25,14 @@ const Hero = () => {
 
   // console.log(barData());
 
-  
   // eslint-disable-next-line
   const [userData, setUserData] = useState([]);
-  
+
   useEffect(() => {
-    fetch("http://test-backend.durbin.co.in/main/bar_chart_data")
+    fetch("http://test-backend.durbin.co.in/main/bar_chart_data", {
+      method: "GET",
+      "Content-Type": "application/json",
+    })
       .then((res) => {
         return res.json();
       })
