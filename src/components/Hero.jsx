@@ -5,7 +5,6 @@ import sandclock from "../assets/sandclock.svg";
 import expand from "../assets/expand.svg";
 import Navbar from "./Navbar";
 import Task from "./Task";
-import { UserData } from "./Data";
 import ChartGraph from "./Chart";
 import OpenLayermap from "./OpenLayermap";
 
