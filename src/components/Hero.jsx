@@ -9,6 +9,23 @@ import ChartGraph from "./Chart";
 import OpenLayermap from "./OpenLayermap";
 
 const Hero = () => {
+  const [userData, setUserData] = useState([]);
+  const [taskData, setTaskData] = useState([]);
+  const [cal, setCal] = useState("hidden");
+  const [date, setDate] = useState("block");
+  const [height, setHeight] = useState("mt-20 mx-10");
+
+  const hidecal = () => {
+    setCal("block");
+    setDate("hidden");
+    setHeight("mt-52 md:mt-20 mx-10");
+  };
+  const hidedate = () => {
+    setCal("hidden");
+    setDate("block");
+    setHeight("mt-20 mx-10");
+  };
+
   const handleDelete = async (id) => {
     await fetch(`http://test-backend.durbin.co.in/main/delete`, {
       method: "Delete",
@@ -23,9 +40,6 @@ const Hero = () => {
     
     window.location.reload();
   };
-
-  const [userData, setUserData] = useState([]);
-  const [taskData, setTaskData] = useState([]);
 
   useEffect(() => {
     fetch("http://test-backend.durbin.co.in/main/bar_chart_data", {
@@ -57,20 +71,7 @@ const Hero = () => {
       });
   }, []);
 
-  const [cal, setCal] = useState("hidden");
-  const [date, setDate] = useState("block");
-  const [height, setHeight] = useState("mt-20 mx-10");
-
-  const hidecal = () => {
-    setCal("block");
-    setDate("hidden");
-    setHeight("mt-52 md:mt-20 mx-10");
-  };
-  const hidedate = () => {
-    setCal("hidden");
-    setDate("block");
-    setHeight("mt-20 mx-10");
-  };
+  
 
   return (
     <div>
