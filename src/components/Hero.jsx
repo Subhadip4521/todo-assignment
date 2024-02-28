@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import bullseye from "../assets/bullseye.svg";
 import sandclock from "../assets/sandclock.svg";
