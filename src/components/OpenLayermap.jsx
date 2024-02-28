@@ -10,22 +10,20 @@ import VectorSource from "ol/source/Vector";
 import { Vector as VectorLayer } from "ol/layer";
 import { Icon, Style } from "ol/style";
 import { Attribution } from "ol/control";
+import io from "socket.io-client";
 
 const OpenLayermap = () => {
-  const [latitude, setLatitude] = useState();
-  const [userAddress, setUserAddress] = useState({});
-  const [longitude, setLongitude] = useState();
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
-  const geo = navigator.geolocation;
-  geo.watchPosition(userCoords);
-  function userCoords(position) {
-    let userLatitude = position.coords.latitude;
-    let userLongitude = position.coords.longitude;
 
-    setLatitude(userLatitude);
-    setLongitude(userLongitude);
-  }
   useEffect(() => {
+    const socket = io("http://172.178.104.95");
+    socket.on('coordinates', data => {
+         setLatitude(data.latitude);
+      setLongitude(data.longitude);
+    })
+
     const map = new Map({
       target: "map",
       layers: [
@@ -71,27 +69,10 @@ const OpenLayermap = () => {
 
     return () => {
       map.dispose();
+      socket.disconnect();
     };
   }, [latitude, longitude]);
 
-  const getUserAddress = async () => {
-    let url = `https://api.opencagedata.com/geocode/v1/json?key=8aa15d164df344928a6a17af322044de&q=${latitude}%2C${longitude}&pretty=1`;
-    const loc = await fetch(url);
-    const data = await loc.json();
-    try {
-      setUserAddress({
-        city: data.results[0].components.city,
-        country: data.results[0].components.country,
-      });
-    } catch (error) {
-      error.message = "Location not found!";
-      alert(error.message);
-    }
-  };
-
-  const handleGetUserAddress = () => {
-    getUserAddress();
-  };
 
   return (
     <div>
@@ -103,54 +84,10 @@ const OpenLayermap = () => {
             className=""
           ></div>
         ) : (
-          <div className="font-bold text-xl text-red-700">
-            Can't find your location!
-          </div>
+          null
         )}
       </div>
 
-      <div>
-        <div>
-          {latitude ? (
-            <div className="font-bold text-2xl">Current Location</div>
-          ) : (
-            <></>
-          )}
-        </div>
-        <div>{latitude ? <div>Latitude: {latitude}</div> : <></>}</div>
-        <div>{longitude ? <div>Longitude: {longitude}</div> : <></>}</div>
-        <div>
-          {userAddress.city ? (
-            <div className="break-words">User City: {userAddress.city}</div>
-          ) : (
-            <></>
-          )}
-        </div>
-        <div>
-          {userAddress.country ? (
-            <div className="break-words">
-              User Country: {userAddress.country}
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-
-        <div>
-          {latitude || longitude ? (
-            <div>
-              <button
-                onClick={handleGetUserAddress}
-                className="bg-blue-900 text-white px-3 py-2 rounded-lg my-3"
-              >
-                Get Address
-              </button>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-      </div>
     </div>
   );
 };

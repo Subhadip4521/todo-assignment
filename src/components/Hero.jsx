@@ -27,6 +27,7 @@ const Hero = () => {
 
   // eslint-disable-next-line
   const [userData, setUserData] = useState([]);
+  const [taskData, setTaskData] = useState([]);
 
   useEffect(() => {
     fetch("http://test-backend.durbin.co.in/main/bar_chart_data", {
@@ -38,6 +39,19 @@ const Hero = () => {
       })
       .then((data) => {
         setUserData([data]);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://test-backend.durbin.co.in/main/get", {
+      method: "GET",
+      "Content-Type": "application/json",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setTaskData([data]);
       });
   }, []);
 
@@ -104,16 +118,16 @@ const Hero = () => {
           <div className="mt-10 sticky bottom-5 z-50">
             <Navbar />
           </div>
-          <div className="md:flex">
-            <div className="mt-16 mx-2">
-              <Task />
-            </div>
-            <div className="mt-16 mx-2">
-              <Task />
-            </div>
-            <div className="mt-16 mx-2">
-              <Task />
-            </div>
+          <div className="md:flex md:flex-wrap md:w-[55%]">
+            {taskData[0] ? (
+              taskData[0].map((task, ind) => (
+                <div className="mt-16 mb-5 mx-3" key={ind}>
+                  <Task taskData={task} />
+                </div>
+              ))
+            ) : (
+              <></>
+            )}
           </div>
           <div className="">
             <div className={height}>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import task from "../assets/task.svg";
 import home from "../assets/home.svg";
@@ -14,7 +15,9 @@ const Navbar = () => {
         </div>
         <div className="pl-3 md:pl-1 md:pt-6 flex md:flex-col gap-5">
           <div>
-            <img src={task} alt="" className="w-10" />
+            <Link to="/form">
+              <img src={task} alt="" className="w-10" />
+            </Link>
           </div>
           <div>
             <img src={home} alt="" className="w-10" />
