@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Calendar from "react-calendar";
 import bullseye from "../assets/bullseye.svg";
 import sandclock from "../assets/sandclock.svg";
@@ -9,21 +9,20 @@ import ChartGraph from "./Chart";
 import OpenLayermap from "./OpenLayermap";
 
 const Hero = () => {
-  // const barData = async () => {
-  //   try {
-  //     const response = await (
-  //       await fetch("http://test-backend.durbin.co.in/main/bar_chart_data", {
-  //         method: "GET",
-  //         "Content-Type": "application/json",
-  //       })
-  //     ).json();
-  //     return response;
-  //   } catch (error) {
-  //     return [];
-  //   }
-  // };
 
-  // console.log(barData());
+  const handleDelete = async (id) => {
+    await fetch(`http://test-backend.durbin.co.in/main/delete`, {
+      method: "Delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id.toString() }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+
+  };
 
   // eslint-disable-next-line
   const [userData, setUserData] = useState([]);
@@ -32,7 +31,9 @@ const Hero = () => {
   useEffect(() => {
     fetch("http://test-backend.durbin.co.in/main/bar_chart_data", {
       method: "GET",
-      "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => {
         return res.json();
@@ -45,7 +46,9 @@ const Hero = () => {
   useEffect(() => {
     fetch("http://test-backend.durbin.co.in/main/get", {
       method: "GET",
-      "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => {
         return res.json();
@@ -122,7 +125,7 @@ const Hero = () => {
             {taskData[0] ? (
               taskData[0].map((task, ind) => (
                 <div className="mt-16 mb-5 mx-3" key={ind}>
-                  <Task taskData={task} />
+                  <Task taskData={task} handleDelete={handleDelete} />
                 </div>
               ))
             ) : (

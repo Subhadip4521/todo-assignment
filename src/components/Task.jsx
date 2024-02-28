@@ -1,16 +1,8 @@
 import React from "react";
 import rocket from "../assets/rocket.svg";
 
-const Task = ({ taskData }) => {
-  const handleDelete = async (id) => {
-    await fetch(`http://172.178.104.95/main/delete/${id}`, {
-      method: "DELETE",
-      "Content-Type": "application/json",
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-  };
+const Task = ({ taskData,handleDelete }) => {
+
   return (
     <div>
       <div className="bg-slate-100 rounded-lg py-2 px-10">
@@ -19,7 +11,12 @@ const Task = ({ taskData }) => {
           <div>
             <img src={rocket} alt="" className="w-8" />
           </div>
-          <div className="w-2 ml-3" onClick={() => { handleDelete(taskData.id) }}>
+          <div
+            className="w-2 ml-3"
+            onClick={() => {
+              handleDelete(taskData.id);
+            }}
+          >
             <i className="fa-solid fa-trash"></i>
           </div>
         </div>

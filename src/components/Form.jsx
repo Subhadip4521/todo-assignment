@@ -52,6 +52,7 @@ const Form = () => {
                   placeholder="Enter task name"
                   autoComplete="off"
                   required
+                  autoFocus
                   onChange={(e) => setTodo_name(e.target.value)}
                 />
               </div>
