@@ -11,18 +11,18 @@ import { Vector as VectorLayer } from "ol/layer";
 import { Icon, Style } from "ol/style";
 import { Attribution } from "ol/control";
 import io from "socket.io-client";
+import { SpinnerCircularFixed } from "spinners-react";
 
 const OpenLayermap = () => {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
-
   useEffect(() => {
     const socket = io("http://172.178.104.95");
-    socket.on('coordinates', data => {
-         setLatitude(data.latitude);
+    socket.on("coordinates", (data) => {
+      setLatitude(data.latitude);
       setLongitude(data.longitude);
-    })
+    });
 
     const map = new Map({
       target: "map",
@@ -73,7 +73,6 @@ const OpenLayermap = () => {
     };
   }, [latitude, longitude]);
 
-
   return (
     <div>
       <div>
@@ -84,10 +83,11 @@ const OpenLayermap = () => {
             className=""
           ></div>
         ) : (
-          null
+          <div className="flex justify-center ml-28 md:ml-10 md:my-10">
+            <SpinnerCircularFixed color="blue" size={100} thickness={100} />
+          </div>
         )}
       </div>
-
     </div>
   );
 };

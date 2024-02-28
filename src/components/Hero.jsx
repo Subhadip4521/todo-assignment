@@ -9,7 +9,6 @@ import ChartGraph from "./Chart";
 import OpenLayermap from "./OpenLayermap";
 
 const Hero = () => {
-
   const handleDelete = async (id) => {
     await fetch(`http://test-backend.durbin.co.in/main/delete`, {
       method: "Delete",
@@ -21,10 +20,10 @@ const Hero = () => {
       .then((res) => res.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
-
+    
+    window.location.reload();
   };
 
-  // eslint-disable-next-line
   const [userData, setUserData] = useState([]);
   const [taskData, setTaskData] = useState([]);
 
@@ -134,10 +133,10 @@ const Hero = () => {
           </div>
           <div className="">
             <div className={height}>
-              <div className="w-[300px]">
+              <div className="w-[300px] sm:w-[350px]">
                 <ChartGraph chartData={userData} />
               </div>
-              <div className="w-48 my-10 rounded-lg">
+              <div className="w-48 sm:w-80 my-10 rounded-lg">
                 <OpenLayermap />
               </div>
             </div>

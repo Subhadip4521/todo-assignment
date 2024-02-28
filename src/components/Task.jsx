@@ -1,8 +1,7 @@
 import React from "react";
 import rocket from "../assets/rocket.svg";
 
-const Task = ({ taskData,handleDelete }) => {
-
+const Task = ({ taskData, handleDelete }) => {
   return (
     <div>
       <div className="bg-slate-100 rounded-lg py-2 px-10">
